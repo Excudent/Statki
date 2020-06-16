@@ -6,9 +6,11 @@ namespace Statki
     {
         static void Main(string[] args)
         {
+            //Pętla menu
             bool start = true;
             while (start)
             {
+                //Tekst Menu
                 Console.WriteLine("Statki");
                 Console.WriteLine("Wybierz Opcje");
                 Console.WriteLine("1. Graj");
@@ -19,7 +21,7 @@ namespace Statki
                 switch (menu)
                 {
                     case "1":
-                        Gra();
+                        Graj();
                         break;
                     case "2":
                         Credits();
@@ -32,19 +34,20 @@ namespace Statki
                         break;
                 }
             }
-            static void Gra()
+            //Rozpoczęcie gry, wybór wielkości planszy
+            static void Graj()
             {
                 int wielkosc = 10;
-                Console.WriteLine("Wybierz wielkość Planszy:");
+                Console.WriteLine("Wybierz wielkość Planszy (5-15):");
                 Console.WriteLine("Domyślna wartość to 10x10");
                 bool z = int.TryParse(Console.ReadLine(),out wielkosc);
                 if (z)
                 {
-                    Console.WriteLine("Dokonano wybor " + wielkosc);
+                    Console.WriteLine("Dokonano wybor " + wielkosc + "x" + wielkosc);
                 }
                 else
                 {
-                    Console.WriteLine("brak wyboru");
+                    Console.WriteLine("Użyto domyślnej wielkości");
                 }
             }
             static void Credits()
