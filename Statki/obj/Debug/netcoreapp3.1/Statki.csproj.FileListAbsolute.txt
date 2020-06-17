@@ -1,4 +1,3 @@
-C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.csprojAssemblyReference.cache
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.AssemblyInfoInputs.cache
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.AssemblyInfo.cs
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.csproj.CoreCompileInputs.cache

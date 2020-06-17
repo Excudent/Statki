@@ -31,9 +31,10 @@ namespace Statki
                         int dotrafienia = g.IloscDoTrafienia();
                         while (g.iloscTrafionych() < dotrafienia)
                         {
-                            b.PokażPlansze(g.GetPlansza());
+                            b.PokażPlansze(g.GetPlansza(),g.iloscTrafionych(),g.iloscNietrafionych());
                             g.Wspolrzedne();
                         }
+                        b.Koniec();
                         break;
                     case "2":
                         Zasady();
@@ -55,6 +56,8 @@ namespace Statki
             {
                 Console.Clear();
                 Console.WriteLine("Gra polega na trafieniu w losowo generowane statki");
+                Console.WriteLine("Minimalna dlugosc statku to 1");
+                Console.WriteLine("Maksymalna dlugosc statku to 5");
                 Console.WriteLine("Oznaczenia na planszy:");
                 Console.WriteLine("? - Miejsce niepewne");
                 Console.WriteLine("T - Trafione");
@@ -74,35 +77,48 @@ namespace Statki
     }
     public class PlanszaStatki
     {
-        public void PokażPlansze(char[,] Plansza)
+        public void PokażPlansze(char[,] Plansza,int trafione,int nietrafione)
         {
             int Rzad;
             int Kolumna;
-            Console.WriteLine("  | 0 1 2 3 4 5 6 7 8 9");
-            Console.WriteLine("--+---------------------");
+            Console.WriteLine("  |  0  1  2  3  4  5  6  7  8  9 " + "  Trafione: " + trafione);
+            Console.WriteLine("--+-------------------------------" + "  Nietrafione: " + nietrafione);
             for(Rzad = 0; Rzad <= 9; Rzad++)
             {
                 Console.Write((Rzad).ToString() + " | ");
                 for (Kolumna = 0; Kolumna <= 9; Kolumna++)
                 {
-                    //Do Debugowania, Pokazuje statki
-                    Console.Write(Plansza[Kolumna, Rzad] + " ");
-                    //switch (Plansza[Kolumna, Rzad])
-                    //{
-                    //    case 'T':
-                    //        Console.Write("T ");
-                    //        break;
-                    //    case 'N':
-                    //        Console.Write("N ");
-                    //        break;
-                    //    default:
-                    //        Console.Write("? ");
-                    //        break;
-                    //}
+                    
+                    switch (Plansza[Kolumna, Rzad])
+                    {
+                        case 'T':
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write(" T ");
+                            break;
+                        case 'N':
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.Write(" N ");
+                            break;
+                        //Do Debugowania, Pokazuje statki
+                        //case 'S':
+                        //    Console.Write(" S ");
+                        //    break;
+                        default:
+                            Console.BackgroundColor = ConsoleColor.DarkBlue;
+                            Console.Write(" ? ");
+                            break;
+                    }
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("\n");
+        }
+        public void Koniec()
+        {
+            Console.Clear();
+            Console.WriteLine("Udalo się utopić wszystkie statki.");
+            Console.ReadKey();
         }
     }
     public class gracz
@@ -153,6 +169,13 @@ namespace Statki
                     Console.ReadKey();
                     Console.Clear();
                 }
+                else if(Plansza[x, y].Equals('T'))
+                {
+                    Console.WriteLine("Zmarnowany naboj, już tam strzelałeś.");
+                    nietrafione += 1;
+                    Console.ReadKey();
+                    Console.Clear();
+                }
                 else
                 {
                     Plansza[x, y] = 'N';
@@ -180,11 +203,39 @@ namespace Statki
             Random r = new Random();
             int PozycjestatkowX = r.Next(0, 10);
             int PozycjestatkowY = r.Next(0, 10);
-            for (int i = 0; i<25; i++)
+            int kierunek = r.Next(0, 2);
+            int dlugosc = r.Next(2,5);
+            for (int i = 0; i<8; i++)
             {
                 SetPlansza(PozycjestatkowX, PozycjestatkowY);
+                if(kierunek == 0)
+                {
+                    for(int n = 0;n<dlugosc; n++)
+                    {
+                        try
+                        {
+                            SetPlansza(PozycjestatkowX + n, PozycjestatkowY);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                else
+                {
+                    for (int n = 0; n < dlugosc; n++)
+                        try
+                        {
+                            SetPlansza(PozycjestatkowX, PozycjestatkowY + n);
+                        }
+                        catch
+                        {
+                        }
+                }
                 PozycjestatkowX = r.Next(0, 10);
                 PozycjestatkowY = r.Next(0, 10);
+                dlugosc = r.Next(2, 5);
+                kierunek = r.Next(0, 2);
             }
         }
         public int IloscDoTrafienia()
@@ -199,5 +250,6 @@ namespace Statki
             }
             return Ilosc;
         }
+
     }
 }
