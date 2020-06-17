@@ -10,3 +10,4 @@ C:\Users\Excud\source\repos\Statki\Statki\bin\Debug\netcoreapp3.1\Statki.pdb
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.dll
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.pdb
 C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.genruntimeconfig.cache
+C:\Users\Excud\source\repos\Statki\Statki\obj\Debug\netcoreapp3.1\Statki.csprojAssemblyReference.cache
